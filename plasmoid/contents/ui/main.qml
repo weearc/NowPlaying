@@ -10,13 +10,14 @@ Item {
     Layout.minimumWidth: units.gridUnit*25
     Layout.minimumHeight: units.gridUnit*5
 
-    Plasmoid.backgroundHints: "NoBackground"
+    Plasmoid.backgroundHints: "DefaultBackground"
 
     opacity: plasmoid.configuration.opacity/100
 
     Representation {
         anchors.fill: parent
     }
+
 
     PlasmaCore.DataSource {
         id: mediaSource
@@ -38,8 +39,8 @@ Item {
                                                   || "" : ""
         property string album: currentMetadata ? currentMetadata["xesam:album"]
                                                  || "" : ""
-        property string albumArt: currentMetadata ? currentMetadata["mpris:artUrl"]
-                                                    || "" : ""
+        property string albumArt: currentMetadata ? currentMetadata["mpris:artUrl"] || "" : ""
+
         property double length: currentMetadata ? currentMetadata["mpris:length"]
                                                   || 0 : 0
         property double position: loaded ? currentData.Position || 0 : 0
@@ -119,5 +120,7 @@ Item {
 
     Component.onCompleted: {
         mediaSource.serviceForSource("@multiplex").enableGlobalShortcuts()
+        console.log(mediaSource.albumArt)
+        console.log("============")
     }
 }
