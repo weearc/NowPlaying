@@ -3,8 +3,14 @@ import QtQuick.Layouts 1.11
 import QtQuick.Controls 2.12
 import org.kde.plasma.components 3.0 as PlasmaComponents
 import org.kde.plasma.core 2.0 as PlasmaCore
+import org.kde.plasma.extras 2.0 as PlasmaExtras
+import org.kde.kcoreaddons 1.0 as KCoreAddons
+import org.kde.kirigami 2.4 as Kirigami
+import QtGraphicalEffects 1.0
+
 
 RowLayout {
+
     id: fullView
     focus: true
     Keys.onReleased: {
@@ -105,7 +111,7 @@ RowLayout {
     Rectangle {
         id: separator
         width: 1
-        // color: "black"
+        // color: "#0f0"
         Layout.fillHeight: true
     }
 
@@ -132,5 +138,26 @@ RowLayout {
             // color: "red"
             lineHeight: 0.8
         }
+
     }
+    Rectangle {
+      id: albumView
+      Layout.fillHeight: true
+      width: 100
+      Image {
+          id: albumart
+          Layout.fillHeight: true
+          Layout.alignment: Qt.AlignCenter
+          source: mediaSource.albumArt
+          asynchronous: true
+          fillMode: Image.PreserveAspectFit
+          sourceSize: Qt.size(512, 512)
+          height: parent.height
+          width: height
+          visible: !!mediaSource.track && status === Image.Ready
+      }
+    }
+
+
+
 }
